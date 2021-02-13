@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        flatDir dirs: "..\\proguard\\lib"
+    }
+
+    dependencies {
+        classpath ":proguard:"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+task (minify, dependsOn: 'jar', type: proguard.gradle.ProGuardTask){
+    configuration 'proguard.cfg'
+
+    injars 'build/libs/lab03.jar'
+    outjars 'build/libs/lab03_out.jar'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-csv:1.8'
+}
+  
+application {
+    mainClassName = 'CSVDemo'
+}
+
